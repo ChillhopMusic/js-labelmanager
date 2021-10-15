@@ -1,33 +1,33 @@
 export type Writer = {
-	Association: string
-	Created: Date
-	IPI: string
-	Id: string
-	Name: string
-	Tags: string[]
-}
+	Association: string;
+	Created: Date | null;
+	IPI: string;
+	Id: string;
+	Name: string;
+	Tags: string[];
+};
 
 export type ServerWriter = {
-	Association: string
-	Created: string
-	IPI: string
-	Id: string
-	Name: string
-	Tags: string[]
-}
+	Association: string;
+	Created: string | null;
+	IPI: string;
+	Id: string;
+	Name: string;
+	Tags: string[];
+};
 
 export function convertServerWriter(w: ServerWriter): Writer {
 	return {
 		...w,
 		Created: w.Created ? new Date(w.Created) : null
-	}
+	};
 }
 
 export function convertWriter(w: Writer): ServerWriter {
 	return {
 		...w,
 		Created: null,
-	}
+	};
 }
 
 export enum WriterRole {

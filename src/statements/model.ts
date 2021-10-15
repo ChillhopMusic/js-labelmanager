@@ -1,4 +1,4 @@
-import {ServerFile} from "../files/model"
+import { ServerFile } from "../files/model";
 
 export enum StatementStatus {
 	Queued = "Queued",
@@ -14,52 +14,52 @@ export enum StatementEmailStatus {
 }
 
 export type ServerStatement = {
-	AttachmentsCount: number
-	Created: string
-	FileIds: string[]
-	Files: ServerFile[]
-	Id: string
-	LabelId: string
-	LabelTitle: string
-	ReportingDate: string
-	Title: string
-	Status: StatementStatus
-	StatusEmail: StatementEmailStatus
-	ErrorMsg: string
-	AccountId: string
-	AccountTitle: string
-	StartDate: string
-	FinishDate: string
-	Held: boolean
-}
+	AttachmentsCount: number;
+	Created: string;
+	FileIds: string[];
+	Files: ServerFile[];
+	Id: string;
+	LabelId: string;
+	LabelTitle: string;
+	ReportingDate: string;
+	Title: string;
+	Status: StatementStatus;
+	StatusEmail: StatementEmailStatus;
+	ErrorMsg: string;
+	AccountId: string;
+	AccountTitle: string;
+	StartDate: string;
+	FinishDate: string;
+	Held: boolean;
+};
 
 export type Statement = {
-	AttachmentsCount: number
-	Created: Date
-	FileIds: string[]
-	Files: ServerFile[]
-	Id: string
-	LabelId: string
-	LabelTitle: string
-	ReportingDate: Date
-	Title: string
-	Status: StatementStatus
-	StatusEmail: StatementEmailStatus
-	ErrorMsg: string
-	AccountId: string
-	AccountTitle: string
-	StartDate: Date
-	FinishDate: Date
-	Held: boolean
-}
+	AttachmentsCount: number;
+	Created: Date | null;
+	FileIds: string[];
+	Files: ServerFile[];
+	Id: string;
+	LabelId: string;
+	LabelTitle: string;
+	ReportingDate: Date | null;
+	Title: string;
+	Status: StatementStatus;
+	StatusEmail: StatementEmailStatus;
+	ErrorMsg: string;
+	AccountId: string;
+	AccountTitle: string;
+	StartDate: Date | null;
+	FinishDate: Date | null;
+	Held: boolean;
+};
 
 export function convertServerStatement(s: ServerStatement): Statement {
 	return {
 		...s,
-		Created: s.Created? new Date(s.Created): null,
-		ReportingDate: s.ReportingDate? new Date(s.ReportingDate): null,
-		StartDate: s.StartDate? new Date(s.StartDate): null,
-		FinishDate: s.FinishDate? new Date(s.FinishDate): null,
-	}
+		Created: s.Created ? new Date(s.Created) : null,
+		ReportingDate: s.ReportingDate ? new Date(s.ReportingDate) : null,
+		StartDate: s.StartDate ? new Date(s.StartDate) : null,
+		FinishDate: s.FinishDate ? new Date(s.FinishDate) : null,
+	};
 }
 

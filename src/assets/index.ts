@@ -54,13 +54,14 @@ export default function AssetsApi(client: Client) {
 			return resp.data
 		},
 
+		// TODO return value
 		async updateAsset(asset: ServerAsset) {
 			if (!asset.Id) return
 			await client.post(`/asset/${asset.Id}`, {Asset: asset})
 		},
 
 		async duplicateAsset(asset: ServerAsset, data: string): Promise<number> {
-			if (!asset.Id) return
+			if (!asset.Id) return 0;
 			type Response = {
 				AssetId: number
 			}

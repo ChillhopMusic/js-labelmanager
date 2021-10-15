@@ -1,9 +1,9 @@
-import {ServerArtist} from "../artists/model"
-import {ServerLink, ValidationInfo} from "../types"
-import {convertServerTrackContract, convertTrackContract, ServerTrackContract, TrackContract} from "../contracts/model"
-import {ServerAsset} from "../assets/model"
-import {WriterTerritory} from "../writers/model"
-import {ServerFile} from "../files/model"
+import { ServerArtist } from "../artists/model";
+import { ServerLink, ValidationInfo } from "../types";
+import { convertServerTrackContract, convertTrackContract, ServerTrackContract, TrackContract } from "../contracts/model";
+import { ServerAsset } from "../assets/model";
+import { WriterTerritory } from "../writers/model";
+import { ServerFile } from "../files/model";
 
 export enum PerformanceType {
 	Instrumental = "Instrumental",
@@ -36,11 +36,11 @@ export type ServerTrack = {
 	Brand: string,
 	BrandId: number,
 	ContractuallySatisfiedUntil: string,
-	Created: string,
+	Created: string | null,
 	CreatedById: string,
 	CreatedByName: string,
 	CreatorFriendly: boolean,
-	DebutDate: string,
+	DebutDate: string | null,
 	Duration: number,
 	Explicit: boolean,
 	FugaId: number,
@@ -70,12 +70,12 @@ export type ServerTrack = {
 	Version: string,
 	WavFileId: string,
 
-	ArtistsInfo: ArtistsInfo[]
-	Contracts: ServerTrackContract[]
-	Releases: ServerReleaseInfo[]
-	TagusAsset: ServerAsset
-	Writers: WriterInfo[]
-}
+	ArtistsInfo: ArtistsInfo[];
+	Contracts: ServerTrackContract[];
+	Releases: ServerReleaseInfo[];
+	TagusAsset: ServerAsset;
+	Writers: WriterInfo[];
+};
 
 export type Track = {
 	ArtistTitle: string,
@@ -85,11 +85,11 @@ export type Track = {
 	Brand: string,
 	BrandId: number,
 	ContractuallySatisfiedUntil: string,
-	Created: Date,
+	Created: Date | null,
 	CreatedById: string,
 	CreatedByName: string,
 	CreatorFriendly: boolean,
-	DebutDate: Date,
+	DebutDate: Date | null,
 	Duration: number,
 	Explicit: boolean,
 	FugaId: number,
@@ -119,12 +119,12 @@ export type Track = {
 	Version: string,
 	WavFileId: string,
 
-	ArtistsInfo: ArtistsInfo[]
-	Contracts: TrackContract[]
-	Releases: ReleaseInfo[]
-	TagusAsset: ServerAsset
-	Writers: WriterInfo[]
-}
+	ArtistsInfo: ArtistsInfo[];
+	Contracts: TrackContract[];
+	Releases: ReleaseInfo[];
+	TagusAsset: ServerAsset;
+	Writers: WriterInfo[];
+};
 
 export function convertServerTrack(t: ServerTrack): Track {
 	return {
@@ -133,183 +133,183 @@ export function convertServerTrack(t: ServerTrack): Track {
 		DebutDate: t.DebutDate ? new Date(t.DebutDate) : null,
 		Contracts: t.Contracts?.map(convertServerTrackContract),
 		Releases: t.Releases?.map(convertServerReleaseInfo)
-	}
+	};
 }
 
 export function convertTrack(t: Track): ServerTrack {
 	return {
 		...t,
-		Created: t.Created?.toISOString(),
-		DebutDate: t.DebutDate?.toISOString(),
+		Created: t.Created?.toISOString() ?? null,
+		DebutDate: t.DebutDate?.toISOString() ?? null,
 		Contracts: t.Contracts?.map(convertTrackContract),
 		Releases: t.Releases?.map(convertReleaseInfo)
-	}
+	};
 }
 
 export type ArtistsInfo = {
-	ArtistId: string
-	ArtistURI: string
-	EventId: string
-	Name: string
-	Platform: string
-	ArtistNumber: number
-	ReleaseId: string
-	Role: string
-	Tags: string[]
-	TrackId: string
-	Public: boolean
-	ProfileFileId: string
-	LogoFileId: string
-	SquareFileId: string
-	PortraitFileId: string
-	LandscapeFileId: string
-	Links: ServerLink[]
-}
+	ArtistId: string;
+	ArtistURI: string;
+	EventId: string;
+	Name: string;
+	Platform: string;
+	ArtistNumber: number;
+	ReleaseId: string;
+	Role: string;
+	Tags: string[];
+	TrackId: string;
+	Public: boolean;
+	ProfileFileId: string;
+	LogoFileId: string;
+	SquareFileId: string;
+	PortraitFileId: string;
+	LandscapeFileId: string;
+	Links: ServerLink[];
+};
 
 export type ReleaseInfo = {
-	CatalogId: string
-	PrereleaseDate: Date
-	ReleaseBrand: string
-	ReleaseDate: Date
-	ReleaseDateTimezone: string
-	ReleaseId: string
-	ReleaseType: string
-	ReleaseVersion: string
-	Title: string
-	TrackNumber: number
-	TrackId: string
-	UPC: string
-}
+	CatalogId: string;
+	PrereleaseDate: Date | null;
+	ReleaseBrand: string;
+	ReleaseDate: Date | null;
+	ReleaseDateTimezone: string;
+	ReleaseId: string;
+	ReleaseType: string;
+	ReleaseVersion: string;
+	Title: string;
+	TrackNumber: number;
+	TrackId: string;
+	UPC: string;
+};
 
 export type ServerReleaseInfo = {
-	CatalogId: string
-	PrereleaseDate: string
-	ReleaseBrand: string
-	ReleaseDate: string
-	ReleaseDateTimezone: string
-	ReleaseId: string
-	ReleaseType: string
-	ReleaseVersion: string
-	Title: string
-	TrackNumber: number
-	TrackId: string
-	UPC: string
-}
+	CatalogId: string;
+	PrereleaseDate: string | null;
+	ReleaseBrand: string;
+	ReleaseDate: string | null;
+	ReleaseDateTimezone: string;
+	ReleaseId: string;
+	ReleaseType: string;
+	ReleaseVersion: string;
+	Title: string;
+	TrackNumber: number;
+	TrackId: string;
+	UPC: string;
+};
 
 export function convertServerReleaseInfo(r: ServerReleaseInfo): ReleaseInfo {
 	return {
 		...r,
 		PrereleaseDate: r.PrereleaseDate ? new Date(r.PrereleaseDate) : null,
-		ReleaseDate: r.ReleaseBrand ? new Date(r.ReleaseDate) : null
-	}
+		ReleaseDate: r.ReleaseDate ? new Date(r.ReleaseDate) : null
+	};
 }
 
 export function convertReleaseInfo(r: ReleaseInfo): ServerReleaseInfo {
 	return {
 		...r,
-		PrereleaseDate: r.PrereleaseDate?.toISOString(),
-		ReleaseDate: r.ReleaseDate?.toISOString(),
-	}
+		PrereleaseDate: r.PrereleaseDate?.toISOString() ?? null,
+		ReleaseDate: r.ReleaseDate?.toISOString() ?? null,
+	};
 }
 
 export type WriterInfo = {
-	PublisherId: string
-	PublisherShare: string
-	Territories: WriterTerritory[]
-	WriterId: string
-	WriterRole: string
-	WriterShare: string
+	PublisherId: string;
+	PublisherShare: string;
+	Territories: WriterTerritory[];
+	WriterId: string;
+	WriterRole: string;
+	WriterShare: string;
 
 	// This is filled by join tables.
 	// Select should ignore these.
-	WriterAssociation?: string
-	PublisherAssociation?: string
-	PublisherName?: string
-	WriterIPI?: string
-	WriterName?: string
-}
+	WriterAssociation?: string;
+	PublisherAssociation?: string;
+	PublisherName?: string;
+	WriterIPI?: string;
+	WriterName?: string;
+};
 
 export type TrackPreview = {
-	Id: string
-	TrackId: string
-	Timestamp: number
-	IsDefault: boolean
-	Caption: string
-}
+	Id: string;
+	TrackId: string;
+	Timestamp: number;
+	IsDefault: boolean;
+	Caption: string;
+};
 
 export type TrackInfoComplete = Track & {
 	// From join
-	ReleaseId: string
-	TrackNumber: number
-	Encodings: string[]
-	IsTagusChild: boolean
-	ReleaseDate: Date
-	Starred: boolean
-	Flag: string
+	ReleaseId: string;
+	TrackNumber: number;
+	Encodings: string[];
+	IsTagusChild: boolean;
+	ReleaseDate: Date | null;
+	Starred: boolean;
+	Flag: string;
 
 	// Added afterwards.
-	Errors: ValidationInfo[]
-}
+	Errors: ValidationInfo[];
+};
 
 export type ServerTrackInfoComplete = ServerTrack & {
 	// From join
-	ReleaseId: string
-	TrackNumber: number
-	Encodings: string[]
-	IsTagusChild: boolean
-	ReleaseDate: string
-	Starred: boolean
-	Flag: string
+	ReleaseId: string;
+	TrackNumber: number;
+	Encodings: string[];
+	IsTagusChild: boolean;
+	ReleaseDate: string;
+	Starred: boolean;
+	Flag: string;
 
 	// Added afterwards.
-	Errors: ValidationInfo[]
-}
+	Errors: ValidationInfo[];
+};
 
 export function convertServerTrackInfoComplete(i: ServerTrackInfoComplete): TrackInfoComplete {
 	return {
 		...i,
 		...convertServerTrack(i),
 		ReleaseDate: i.ReleaseDate ? new Date(i.ReleaseDate) : null,
-	}
+	};
 }
 
 export type TrackEncoding = {
-	Id: string
-	Date: Date
-	TrackId: string
-	ReleaseId: string
-	Status: string
-	Log: string
-	ProcessId: string
-	FileId: string
-	WavFileId: string
-	Sha1Hash: string
-	Filename: string
-	Mime: string
-	Public: boolean
-	File: ServerFile
-}
+	Id: string;
+	Date: Date | null;
+	TrackId: string;
+	ReleaseId: string;
+	Status: string;
+	Log: string;
+	ProcessId: string;
+	FileId: string;
+	WavFileId: string;
+	Sha1Hash: string;
+	Filename: string;
+	Mime: string;
+	Public: boolean;
+	File: ServerFile;
+};
 
 export type ServerTrackEncoding = {
-	Id: string
-	Date: string
-	TrackId: string
-	ReleaseId: string
-	Status: string
-	Log: string
-	ProcessId: string
-	FileId: string
-	WavFileId: string
-	Sha1Hash: string
-	Filename: string
-	Mime: string
-	Public: boolean
-	File: ServerFile
-}
+	Id: string;
+	Date: string;
+	TrackId: string;
+	ReleaseId: string;
+	Status: string;
+	Log: string;
+	ProcessId: string;
+	FileId: string;
+	WavFileId: string;
+	Sha1Hash: string;
+	Filename: string;
+	Mime: string;
+	Public: boolean;
+	File: ServerFile;
+};
 
 export function convertServerTrackEncoding(t: ServerTrackEncoding): TrackEncoding {
 	return {
 		...t,
-		Date: t.Date? new Date(t.Date): null,
-	}
+		Date: t.Date ? new Date(t.Date) : null,
+	};
 }

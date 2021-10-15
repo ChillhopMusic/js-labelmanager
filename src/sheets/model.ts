@@ -1,8 +1,8 @@
-import {ServerAllocationSet} from "../allocation-sets/model";
+import { ServerAllocationSet } from "../allocation-sets/model";
 
 export type ServerSheet = {
 	Archived: boolean,
-	Created: string,
+	Created: string | null,
 	CreatorId?: string,
 	CreatorName: string,
 	EntityTitle: string,
@@ -30,7 +30,7 @@ export type ServerSheet = {
 	NumMatchErrors: number,
 	OriginalFilepath: string,
 	OriginalHash: string,
-	PostedDate: string,
+	PostedDate: string | null,
 	SchemaId: number,
 	SchemaTarget: string,
 	SchemaTitle: string,
@@ -39,12 +39,12 @@ export type ServerSheet = {
 	Tags: string[],
 	Title: string,
 	ValidMatches: boolean,
-	ValidSheet: boolean
-}
+	ValidSheet: boolean;
+};
 
 export type Sheet = {
 	Archived: boolean,
-	Created: Date,
+	Created: Date | null,
 	CreatorId?: string,
 	CreatorName: string,
 	EntityTitle: string,
@@ -72,7 +72,7 @@ export type Sheet = {
 	NumMatchErrors: number,
 	OriginalFilepath: string,
 	OriginalHash: string,
-	PostedDate: Date,
+	PostedDate: Date | null,
 	SchemaId: number,
 	SchemaTarget: string,
 	SchemaTitle: string,
@@ -81,30 +81,30 @@ export type Sheet = {
 	Tags: string[],
 	Title: string,
 	ValidMatches: boolean,
-	ValidSheet: boolean
-}
+	ValidSheet: boolean;
+};
 
 export function convertServerSheet(s: ServerSheet): Sheet {
 	return {
 		...s,
-		Created: s.Created? new Date(s.Created): null,
-		PostedDate: s.PostedDate? new Date(s.PostedDate): null,
-	}
+		Created: s.Created ? new Date(s.Created) : null,
+		PostedDate: s.PostedDate ? new Date(s.PostedDate) : null,
+	};
 }
 
 export function convertSheet(s: Sheet): ServerSheet {
 	return {
 		...s,
-		Created: s.Created.toISOString(),
-		PostedDate: s.PostedDate?.toISOString(),
-	}
+		Created: s.Created?.toISOString() ?? null,
+		PostedDate: s.PostedDate?.toISOString() ?? null,
+	};
 }
 
 export type SheetError = {
-	AssignedValue: string
-	ColumnNumber: number
-	EntityId: number
-	Message: string
-	RowNumber: number
-	SheetId: number
-}
+	AssignedValue: string;
+	ColumnNumber: number;
+	EntityId: number;
+	Message: string;
+	RowNumber: number;
+	SheetId: number;
+};
